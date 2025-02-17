@@ -1,12 +1,13 @@
 package tn.esprit.firstSBProject.Entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +16,15 @@ import lombok.Setter;
 @Entity
 public class Foyer {
     @Id
-    private long idFoyer;
+    private Long idFoyer;
+
     private String nomFoyer;
-    private long capaciteFoyer;
+    private Long capaciteFoyer;
+
+    @ManyToOne
+    @JoinColumn(name = "idUniversite")
+    private Universite universite;
+
+    @OneToMany(mappedBy = "foyer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bloc> blocs;
 }

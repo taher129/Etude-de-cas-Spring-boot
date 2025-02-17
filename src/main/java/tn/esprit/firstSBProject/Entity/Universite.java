@@ -1,11 +1,12 @@
 package tn.esprit.firstSBProject.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +15,11 @@ import lombok.Setter;
 @Entity
 public class Universite {
     @Id
-    private long idUniversite;
+    private Long idUniversite;
+
     private String nomUniversite;
-    private String address;
+    private String adresse;
+
+    @OneToMany(mappedBy = "universite", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Foyer> foyers;
 }

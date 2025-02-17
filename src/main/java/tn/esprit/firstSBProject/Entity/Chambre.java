@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,11 +15,15 @@ import lombok.Setter;
 @Entity
 public class Chambre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idChambre; // Fixed typo
+    private Long numeroChambre;
 
-    private long numeroChambre;
+    @Enumerated(EnumType.STRING)
+    private TypeC typeC;
 
-    @Enumerated(EnumType.STRING) // Ensures the enum is stored as a string in the database
-    private TypeC typeC; // Use an enum instead of `Enumeration`
+    @ManyToOne
+    @JoinColumn(name = "idBloc")
+    private Bloc bloc;
+
+    @OneToMany(mappedBy = "chambre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reservation> reservations;
 }
