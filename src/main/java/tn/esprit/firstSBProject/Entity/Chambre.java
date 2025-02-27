@@ -15,6 +15,9 @@ import java.util.List;
 @Entity
 public class Chambre {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idChambre;
+
     private Long numeroChambre;
 
     @Enumerated(EnumType.STRING)

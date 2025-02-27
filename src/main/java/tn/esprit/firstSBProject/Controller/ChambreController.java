@@ -1,6 +1,7 @@
 package tn.esprit.firstSBProject.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.firstSBProject.Entity.Chambre;
 import tn.esprit.firstSBProject.Service.ChambreService;
@@ -13,12 +14,15 @@ public class ChambreController {
     @Autowired
     private ChambreService chambreService;
 
-    @PostMapping
-    public Chambre createChambre(@RequestBody Chambre chambre) {
-        return chambreService.saveChambre(chambre);
+    @PostMapping("/addChambre")
+    public ResponseEntity<Chambre> addChambre(@RequestBody Chambre chambre) {
+        System.out.println("Received Chambre: " + chambre);
+        Chambre savedChambre = chambreService.saveChambre(chambre);
+        return ResponseEntity.ok(savedChambre);
     }
 
-    @GetMapping
+
+    @GetMapping("/retrieve-all-chambres")
     public List<Chambre> getAllChambres() {
         return chambreService.getAllChambres();
     }
@@ -28,8 +32,12 @@ public class ChambreController {
         return chambreService.getChambreById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/remove-chambre/{id}")
     public void deleteChambre(@PathVariable Long id) {
         chambreService.deleteChambre(id);
     }
-}
+    @PutMapping("/modify-chambre")
+    public Chambre modifyChambre(@RequestBody Chambre c) {
+        return chambreService.modifyChambre(c);
+    }
+    }

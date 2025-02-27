@@ -27,4 +27,7 @@ public class ChambreService {
     public void deleteChambre(Long id) {
         chambreRepository.deleteById(id);
     }
+    public Chambre modifyChambre(Chambre chambre) {
+        return chambreRepository.save(chambre);
+    }
 }
